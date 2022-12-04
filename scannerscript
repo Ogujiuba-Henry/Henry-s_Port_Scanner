@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# This script accepts a list of IP addresses as input and
+# iterates through them to check for open ports.
+
+# First, we need to check if the user has provided a list of IP addresses as input
+
+if [ -z "$1" ]; then
+  # If no IP address is provided, print an error message and exit
+  echo "Error: No IP address provided"
+  exit 1
+
+fi
+
+# Save the list of IP addresses in a variable called "ipaddresses"
+
+ipaddresses=$@
+
+# Iterate through the list of IP addresses
+
+for ip in $ipaddresses
+
+do
+  # For each IP address, use the "nmap" command to scan for open ports
+  # and save the output in a file called "open_ports_results"
+  nmap -sT $ip > open_ports_results
+
+  # Print the contents of the "open_ports_results" file
+  cat open_ports_results
+
+done
+
